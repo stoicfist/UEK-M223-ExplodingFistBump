@@ -1,6 +1,7 @@
 # app/controllers/posts_controller.rb
 
 class PostsController < ApplicationController
+  skip_before_action :require_authentication, only: [:index, :show] 
   before_action :set_post, only: [ :show, :edit, :update, :destroy ]
 
   def index
@@ -20,7 +21,7 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to @post
     else
-      render :new
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -31,7 +32,7 @@ class PostsController < ApplicationController
     if @post.update(post_params)
       redirect_to @post
     else
-      render :edit
+      render :new, status: :unprocessable_entity
     end
   end
 

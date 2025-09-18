@@ -4,13 +4,18 @@
 
 <h1>Posts</h1>
 
-<div id="posts">
-  <% @posts.each do |post| %>
-    <%= render post %>
-    <p>
-      <%= link_to "Show this post", post %>
-    </p>
-  <% end %>
-</div>
+<% if Current.user %>
+  <p><%= link_to "New post", new_post_path %></p>
+<% end %>
 
-<%= link_to "New post", new_post_path %>
+<ul>
+  <% @posts.each do |post| %>
+    <li>
+      <%= link_to post.title, post %>
+      <% if Current.user %>
+        — <%= link_to "Edit", edit_post_path(post) %>
+        — <%= link_to "Delete", post, data: { turbo_method: :delete, turbo_confirm: "Really delete?" } %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
