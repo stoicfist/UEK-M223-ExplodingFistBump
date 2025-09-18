@@ -2,12 +2,20 @@ require "test_helper"
 
 class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   test "should get new" do
-    get registrations_new_url
+    get new_registration_url
     assert_response :success
   end
 
-  test "should get create" do
-    get registrations_create_url
-    assert_response :success
+  test "should create" do
+    assert_difference("User.count") do
+      post registrations_url, params: {
+        user: {
+          email_address: "t#{SecureRandom.hex(4)}@example.com",
+          password: "secret123",
+          password_confirmation: "secret123"
+        }
+      }
+    end
+    assert_response :redirect
   end
 end
