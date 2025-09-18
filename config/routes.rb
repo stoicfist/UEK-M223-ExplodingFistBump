@@ -1,34 +1,16 @@
+# config/routes.rb
 Rails.application.routes.draw do
-  get "registrations/new"
-  get "registrations/create"
-  resource :session
-  resources :passwords, param: :token
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  # Startseite
+  root "posts#index"
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+  # Auth
+  resource  :session,   only: [:new, :create, :destroy]
+  resources :passwords, only: [:new, :create, :edit, :update], param: :token
+  resources :registrations, only: [:new, :create]
+
+  # Posts
   resources :posts
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  # Healthcheck (für CI)
+  get "up" => "rails/health#show", as: :rails_health_check
 end
-
-# config/routes.rb
-Rails.application.routes.draw do
-  get "registrations/new"
-  get "registrations/create"
-  resource  :session,      only: [ :new, :create, :destroy ]
-  resources :passwords,    only: [ :new, :create, :edit, :update ], param: :token
-
-  resources :registrations, only: [ :new, :create ]
-
-  # deine bestehenden Routen …
-  root "posts#index"  # oder was immer du als Root hast
-end
-
-# config/routes.rb
-resources :registrations, only: [ :new, :create ]
