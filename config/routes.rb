@@ -29,3 +29,6 @@ Rails.application.routes.draw do
   # deine bestehenden Routen …
   root "posts#index"  # oder was immer du als Root hast
 end
+
+# config/routes.rb
+resources :registrations, only: [ :new, :create ]
