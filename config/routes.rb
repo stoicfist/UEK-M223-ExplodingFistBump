@@ -21,10 +21,10 @@ end
 Rails.application.routes.draw do
   get "registrations/new"
   get "registrations/create"
-  resource  :session,      only: [:new, :create, :destroy]
-  resources :passwords,    only: [:new, :create, :edit, :update], param: :token
+  resource  :session,      only: [ :new, :create, :destroy ]
+  resources :passwords,    only: [ :new, :create, :edit, :update ], param: :token
 
-  resources :registrations, only: [:new, :create]
+  resources :registrations, only: [ :new, :create ]
 
   # deine bestehenden Routen …
   root "posts#index"  # oder was immer du als Root hast

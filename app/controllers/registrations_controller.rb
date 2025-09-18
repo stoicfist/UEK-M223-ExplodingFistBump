@@ -1,7 +1,7 @@
 # app/controllers/registrations_controller.rb
 class RegistrationsController < ApplicationController
   include Authentication
-  skip_before_action :require_authentication, only: [:new, :create]
+  skip_before_action :require_authentication, only: [ :new, :create ]
 
   def new
     @user = User.new
