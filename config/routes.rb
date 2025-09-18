@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "registrations/new"
+  get "registrations/create"
   resource :session
   resources :passwords, param: :token
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -13,4 +15,17 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+end
+
+# config/routes.rb
+Rails.application.routes.draw do
+  get "registrations/new"
+  get "registrations/create"
+  resource  :session,      only: [:new, :create, :destroy]
+  resources :passwords,    only: [:new, :create, :edit, :update], param: :token
+
+  resources :registrations, only: [:new, :create]
+
+  # deine bestehenden Routen …
+  root "posts#index"  # oder was immer du als Root hast
 end

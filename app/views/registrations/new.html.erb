@@ -1,0 +1,33 @@
+<!-- app/views/registrations/new.html.erb -->
+<h1>Register</h1>
+
+<% if @user.errors.any? %>
+  <div>
+    <p><strong><%= pluralize(@user.errors.count, "error") %></strong> prevented the account from being created:</p>
+    <ul>
+      <% @user.errors.full_messages.each do |m| %>
+        <li><%= m %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @user, url: registrations_path do |form| %>
+  <div>
+    <%= form.label :email_address %><br>
+    <%= form.email_field :email_address, required: true, autofocus: true,
+                         autocomplete: "username", placeholder: "Enter your email address" %>
+  </div>
+
+  <div>
+    <%= form.label :password %><br>
+    <%= form.password_field :password, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :password_confirmation %><br>
+    <%= form.password_field :password_confirmation, required: true %>
+  </div>
+
+  <%= form.submit "Sign up" %>
+<% end %>
